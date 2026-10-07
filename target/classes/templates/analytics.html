@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Analytics Report</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -139,10 +139,10 @@
 
 <!-- Navigation -->
 <nav class="navbar">
-    <img src="../images/Impact.png" class="logo" alt="Impact Logo">
+    <img th:src="@{/images/Impact.png}" src="/images/Impact.png" class="logo" alt="Impact Logo">
     <div class="navbar-menu">
-        <a href="/tasks" class="navbar-item">Home</a>
-        <a href="/analytics" class="navbar-item">Analytics</a>
+        <a th:href="@{/tasks}" class="navbar-item">Home</a>
+        <a th:href="@{/analytics}" class="navbar-item">Analytics</a>
     </div>
 </nav>
 
@@ -151,12 +151,12 @@
 <div class="container">
     <!-- Form to select dates -->
     <div class="form-container">
-        <form action="/analytics" method="get">
+        <form th:action="@{/analytics}" method="get">
             <label for="startDateInput">Start Date:</label>
-            <input type="datetime-local" id="startDateInput" name="startDate" required>
+            <input type="datetime-local" id="startDateInput" name="startDate" th:value="${formattedStartDate}" required>
 
             <label for="endDateInput">End Date:</label>
-            <input type="datetime-local" id="endDateInput" name="endDate" required>
+            <input type="datetime-local" id="endDateInput" name="endDate" th:value="${formattedEndDate}" required>
 
             <button type="submit">Generate Report</button>
         </form>

@@ -1,3 +1,4 @@
 com/impact/do_do_app/DoDoAppApplicationTests.class
+com/impact/do_do_app/ToDoListControllersTest.class
 com/impact/do_do_app/ToDoListRepositoryTest.class
 com/impact/do_do_app/ToDoListServiceImpTest.class

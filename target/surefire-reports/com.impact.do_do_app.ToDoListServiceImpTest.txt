@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.impact.do_do_app.ToDoListServiceImpTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.470 s -- in com.impact.do_do_app.ToDoListServiceImpTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.155 s -- in com.impact.do_do_app.ToDoListServiceImpTest

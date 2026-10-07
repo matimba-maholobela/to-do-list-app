@@ -8,11 +8,11 @@
 <body>
 
 <nav class="navbar">
-    <img th:src="@{/images/Impact.png}" class="logo" alt="Impact Logo">
+    <img th:src="@{/images/Impact.png}" src="/images/Impact.png" class="logo" alt="Impact Logo">
 
     <div class="navbar-menu">
-        <a href="/tasks" class="navbar-item">Home</a>
-        <a href="/analytics" class="navbar-item">Analytics</a>
+        <a th:href="@{/tasks}" class="navbar-item">Home</a>
+        <a th:href="@{/analytics}" class="navbar-item">Analytics</a>
     </div>
 </nav>
 
@@ -55,7 +55,7 @@
         <!-- update buttons -->
         <div>
             <button type="submit" class="btn edit-btn">Save Changes</button>
-            <a href="/tasks" class="btn delete-btn">Cancel</a>
+            <a th:href="@{/tasks}" class="btn delete-btn">Cancel</a>
         </div>
     </form>
 

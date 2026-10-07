@@ -29,8 +29,15 @@ Technical Overview
 ## Implementation
 Programming Language: Java
 Framework: Spring Framework
-Database: SQLite (preferred but configurable)
+Database: H2 (embedded and persisted to `./data/todo-db.mv.db`)
 Frontend: Template-based rendering (e.g., Thymeleaf, FreeMarker, or JSP).
+
+## Run locally
+
+Start the application with `./mvnw spring-boot:run`, then open
+`http://localhost:8080/tasks`. The H2 console is available at
+`http://localhost:8080/h2-console` using JDBC URL
+`jdbc:h2:file:./data/todo-db`, user `sa`, and a blank password.
 ## API Design
 No RESTful API required; HTML is server-rendered.
 No authentication required; assume all requests are from the same user.

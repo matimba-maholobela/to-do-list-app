@@ -15,7 +15,7 @@ RUN chown -R impactUser:impactGroup /app
 
 USER impactUser
 
-EXPOSE 8000
+EXPOSE 8080
 
 #command to run the jar file
 ENTRYPOINT ["java","-jar","app.jar"]

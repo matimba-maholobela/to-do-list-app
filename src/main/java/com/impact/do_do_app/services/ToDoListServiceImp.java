@@ -22,6 +22,9 @@ public class ToDoListServiceImp implements ToDoListServices {
     @Override
     public ToDoList createTask(ToDoList task) {
         task.setCreatedAt(LocalDateTime.now());
+        if ("Completed".equals(task.getStatus()) && task.getCompletedAt() == null) {
+            task.setCompletedAt(LocalDateTime.now());
+        }
         return toDoListRepository.save(task);
     }
 

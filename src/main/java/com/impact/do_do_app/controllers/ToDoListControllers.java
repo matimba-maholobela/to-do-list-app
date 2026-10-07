@@ -7,10 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
-@RequestMapping("/tasks")
 public class ToDoListControllers {
 
     private final ToDoListServices toDoListService;
@@ -20,7 +20,12 @@ public class ToDoListControllers {
         this.toDoListService = toDoListService;
     }
 
-    @GetMapping
+    @GetMapping("/")
+    public String index() {
+        return "redirect:/tasks";
+    }
+
+    @GetMapping("/tasks")
     public String getAllTasks(Model model) {
         // used to display all tasks in the index.
 
@@ -29,7 +34,7 @@ public class ToDoListControllers {
         return "index";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/tasks/add")
     public String addTask(@ModelAttribute ToDoList task) {
 
         //create new task
@@ -37,14 +42,14 @@ public class ToDoListControllers {
         return "redirect:/tasks";
     }
 
-    @PostMapping("/update-status")
+    @PostMapping("/tasks/update-status")
     public String updateTaskStatus(@RequestParam Long id, @RequestParam String status) {
         // Fetch the existing task
         ToDoList existingTask = toDoListService.getTask(id)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
 
         // Check if the current status is "Completed"
-        if ("Completed".equals(existingTask.getStatus())) {
+        if ("Completed".equals(existingTask.getStatus()) && !"Completed".equals(status)) {
             // If moving away from "Completed", clear the completed date
             toDoListService.clearCompletedDate(id);
         }
@@ -53,7 +58,7 @@ public class ToDoListControllers {
         toDoListService.updateTaskStatus(id, status);
 
         // Set completed date if the new status is "Completed"
-        if ("Completed".equals(status)) {
+        if ("Completed".equals(status) && !"Completed".equals(existingTask.getStatus())) {
             toDoListService.setCompletedDate(id);
         }
 
@@ -61,7 +66,7 @@ public class ToDoListControllers {
     }
 
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/tasks/edit/{id}")
     public String editTask(@PathVariable Long id, Model model) {
         // Fetch the task by ID and pass it to the view
         ToDoList task = toDoListService.getTask(id)
@@ -71,7 +76,7 @@ public class ToDoListControllers {
     }
 
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/tasks/update/{id}")
     public String updateTask(@PathVariable Long id, @ModelAttribute ToDoList updatedTask) {
         // Fetch the existing task from the service
         ToDoList existingTask = toDoListService.getTask(id)
@@ -79,6 +84,11 @@ public class ToDoListControllers {
 
         existingTask.setName(updatedTask.getName());
         existingTask.setDescription(updatedTask.getDescription());
+        if ("Completed".equals(updatedTask.getStatus()) && !"Completed".equals(existingTask.getStatus())) {
+            existingTask.setCompletedAt(LocalDateTime.now());
+        } else if (!"Completed".equals(updatedTask.getStatus()) && "Completed".equals(existingTask.getStatus())) {
+            existingTask.setCompletedAt(null);
+        }
         existingTask.setStatus(updatedTask.getStatus());
         // Don't update createdAt
 
@@ -87,7 +97,7 @@ public class ToDoListControllers {
         return "redirect:/tasks";
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/tasks/delete")
     public String deleteTask(@RequestParam Long id) {
 
         //delete a task

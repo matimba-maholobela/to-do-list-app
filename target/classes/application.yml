@@ -1,8 +1,8 @@
 #spring:
 #  datasource:
-#    url: jdbc:mysql://localhost:3306/todo_list_db
-#    username: impactTest
-#    password: Spring@123
+#    url: db_connection
+#    username: username
+#    password: password
 #  jpa:
 #    hibernate:
 #      ddl-auto: update
